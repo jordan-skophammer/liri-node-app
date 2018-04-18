@@ -10,7 +10,17 @@ var client = new Twitter(keys.twitter);
 
 var userCommand = process.argv[2];
 
+// client.get('status/user_timeline', function(error, tweets, response) {
+// 	if (!error) {
+// 		console.log(response);
+// 	}
+// })
 
-
-console.log(spotify)
-console.log(client)
+spotify
+  .search({ type: 'track', query: 'All the Small Things' })
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
