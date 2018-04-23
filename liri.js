@@ -42,6 +42,8 @@ function myTweets() {
 
 function searchSpotify() {
 
+	if (!userQuery) {userQuery = "Ace of Base The Sign"};
+
 	spotify.search({ type: 'track', query: userQuery, limit: '1'}, function(err, data) {
 		if (err) {
 			return console.log('Error occurred: ' + err);
@@ -51,9 +53,12 @@ function searchSpotify() {
 		console.log("Album: " + data.tracks.items[0].name);
 		console.log("Song Link: " + data.tracks.items[0].external_urls.spotify);
 	});
+	
 }; 
 
 function searchOMDB() {
+
+	if (!userQuery) {userQuery = "Mr. Nobody"}
 
 	var queryUrl = "http://www.omdbapi.com/?t=" + userQuery + "&y=&plot=short&apikey=trilogy";
 
@@ -99,7 +104,7 @@ if (userMenu === "my-tweets") {
 }else if (userMenu === "do-what-it-says") {
 	
 	readFile();
-	
+
 }else {
 	console.log("Invalid input, please select again.");
 	console.log("Please input one of the following:");
