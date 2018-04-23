@@ -41,7 +41,7 @@ function myTweets() {
 };
 
 function searchSpotify() {
-
+	
 	if (!userQuery) {userQuery = "Ace of Base The Sign"};
 
 	spotify.search({ type: 'track', query: userQuery, limit: '1'}, function(err, data) {
@@ -79,13 +79,24 @@ function searchOMDB() {
 	});
 };
 
-function readFile() {
+function readFile(var1, var2) {
 
 	fs.readFile('random.txt', 'utf8', function(err,data){
         if(err) throw err;
 		var inputArr = data.split(',');
-		userMenu = inputArr[0];
-		userArgs = inputArr[1];
+		var1 = inputArr[0];
+		var2 = inputArr[1];
+
+		spotify.search({ type: 'track', query: var2, limit: '1'}, function(err, data) {
+			if (err) {
+				return console.log('Error occurred: ' + err);
+			};
+			
+			console.log("Artist: " + data.tracks.items[0].artists[0].name);
+			console.log("Album: " + data.tracks.items[0].name);
+			console.log("Song Link: " + data.tracks.items[0].external_urls.spotify);
+		});
+		
 	});
 };
 
