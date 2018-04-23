@@ -23,7 +23,7 @@ for (var i = 3; i < userArgs.length; i++) {
 	};
 };
 
-if (userMenu === "my-tweets") {
+function myTweets() {
 	var params = {id:'jskophammer'};
 
 	client.get('statuses/user_timeline.json?count=20', params, function(error, tweets, response) {
@@ -38,7 +38,10 @@ if (userMenu === "my-tweets") {
 			console.log(error);
 		};
 	});
-} else if (userMenu === "spotify-this-song") {
+};
+
+function searchSpotify() {
+
 	spotify.search({ type: 'track', query: userQuery, limit: '1'}, function(err, data) {
 		if (err) {
 			return console.log('Error occurred: ' + err);
@@ -48,7 +51,10 @@ if (userMenu === "my-tweets") {
 		console.log("Album: " + data.tracks.items[0].name);
 		console.log("Song Link: " + data.tracks.items[0].external_urls.spotify);
 	});
-} else if (userMenu === "movie-this") {
+}; 
+
+function searchOMDB() {
+
 	var queryUrl = "http://www.omdbapi.com/?t=" + userQuery + "&y=&plot=short&apikey=trilogy";
 
 	console.log(queryUrl);
@@ -66,14 +72,34 @@ if (userMenu === "my-tweets") {
 		console.log("Actors: " + JSON.parse(body).Actors);
 	  }
 	});
-}else if (userMenu === "do-what-it-says") {
+};
+
+function readFile() {
+
 	fs.readFile('random.txt', 'utf8', function(err,data){
         if(err) throw err;
 		var inputArr = data.split(',');
-		// console.log(inputArr)
 		userMenu = inputArr[0];
 		userArgs = inputArr[1];
 	});
+};
+
+if (userMenu === "my-tweets") {
+
+	myTweets();
+
+} else if (userMenu === "spotify-this-song") {
+	
+	searchSpotify();
+
+} else if (userMenu === "movie-this") {
+	
+	searchOMDB();
+
+}else if (userMenu === "do-what-it-says") {
+	
+	readFile();
+	
 }else {
 	console.log("Invalid input, please select again.");
 	console.log("Please input one of the following:");
